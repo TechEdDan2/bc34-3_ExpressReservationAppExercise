@@ -8,7 +8,13 @@
 
 <ul style="column-count: 4">
   {% for customer in customers %}
-  <li><a href="/{{ customer.id }}/">{{ customer.firstName }} {{ customer.lastName }}</a></li>
+  <li>
+    <a href="/{{ customer.id }}/">
+      <!-- Displaying customer name using the getFullName method -->
+      <!-- {{ customer.firstName }} {{ customer.lastName }} -->
+      {{ customer.getFullName() }}
+    </a>
+  </li>
   {% endfor %}
 </ul>
 
