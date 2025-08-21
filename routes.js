@@ -74,6 +74,17 @@ router.get("/top", async function (req, res, next) {
   }
 });
 
+/** Added this route for later use if the user wants to ask for top 5, 10, 18, etc. */
+router.get("/top/:limit/", async function (req, res, next) {
+  try {
+    const customers = await Customer.topCustomers(req.params.limit);
+    return res.render("customer_list.html", { customers });
+
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /** Show a customer, given their ID. */
 
 router.get("/:id/", async function (req, res, next) {
