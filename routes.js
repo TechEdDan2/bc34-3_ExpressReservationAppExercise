@@ -63,6 +63,17 @@ router.get("/search", async function (req, res, next) {
   }
 });
 
+/** Get the top customers by number of reservations */
+router.get("/top", async function (req, res, next) {
+  try {
+    const customers = await Customer.topCustomers();
+    return res.render("customer_list.html", { customers });
+
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /** Show a customer, given their ID. */
 
 router.get("/:id/", async function (req, res, next) {

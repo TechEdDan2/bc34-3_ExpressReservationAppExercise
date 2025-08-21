@@ -94,7 +94,32 @@ class Customer {
     return results.rows.map(c => new Customer(c));
   }
 
-  /** getFullName */
+  /** topCustomers will return the 
+   *   top x number of customer with a default of
+   *   10;
+   */
+  static async topCustomers(limit = 10) {
+    const results = await db.query(
+      `SELECT 
+        c.id, 
+        c.first_name AS "firstName",  
+        c.last_name AS "lastName", 
+        c.phone, 
+        c.notes,
+      COUNT(r.id) AS "numRes"
+      FROM customers c
+      LEFT JOIN reservations r ON c.id = r.customer_id
+      GROUP BY 
+        c.id, c.first_name, 
+        c.last_name, 
+        c.phone, 
+        c.notes
+      ORDER BY COUNT(r.id) DESC
+      LIMIT $1`, [limit]);
+    return results.rows.map(c => new Customer(c));
+  }
+
+  /** getFullName will return the full name of the customer */
   getFullName() {
     return `${this.firstName} ${this.lastName}`;
   }

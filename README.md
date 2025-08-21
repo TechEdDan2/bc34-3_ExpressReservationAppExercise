@@ -10,7 +10,7 @@
 - [Routes](#routes)
 - [Author](#author)
 - [Acknowledgments](#acknowledgments)
-- [License] (#license)
+- [License](#license)
 
 ---
 ## Overview
