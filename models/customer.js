@@ -79,6 +79,21 @@ class Customer {
     }
   }
 
+  /** search for customers by name. */
+  static async searchByName(searchName) {
+    const results = await db.query(
+      `SELECT id, 
+         first_name AS "firstName",  
+         last_name AS "lastName", 
+         phone, 
+         notes
+       FROM customers
+       WHERE first_name ILIKE $1 OR last_name ILIKE $1
+       ORDER BY last_name, first_name`, [`%${searchName}%`]
+    );
+    return results.rows.map(c => new Customer(c));
+  }
+
   /** getFullName */
   getFullName() {
     return `${this.firstName} ${this.lastName}`;
